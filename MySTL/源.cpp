@@ -3,10 +3,11 @@
 #include<vector>
 using namespace std;
 
+
 int main()
 {
-	MyVector<int>h1;
-	h1.push_back(444.3432);
+	
+	MyVector<int>ttt(2);
 	int rrr;
 	cin >> rrr;
 	
