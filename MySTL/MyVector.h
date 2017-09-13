@@ -32,6 +32,7 @@ public:
 	void insert(iterator position,const T& value);	//在指针position前插入值value
 	void erase(iterator position);	//删除position位置的元素
 	void erase(iterator first_position, iterator last_position);	//删除从first到last的元素
+	void clear() { last = first; };	//删除所有元素
 
 	iterator begin() { return first; }	//返回起始地址
 	iterator end() { return last; }		//返回vector尾部地址的后一位
@@ -50,6 +51,8 @@ private:
 private:
 	void my_destroy();		//销毁vector，释放空间
 };
+
+
 
 template<typename T, class my_allocator = std::allocator<T>>
 void MyVector<T, my_allocator>::erase(iterator position)

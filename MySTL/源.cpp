@@ -14,22 +14,18 @@ _SCL_SECURE_NO_WARNINGS
 #include<iostream>
 #include"MyVector.h"
 #include<vector>
+#include<list>
 using namespace std;
 
 
 int main()
 {
-	MyVector<int>ttt;
-	for (int  i = 0; i < 16; i++)
-	{
-		ttt.push_back(i);
-	}
-	ttt.erase(ttt.begin(),ttt.begin()+4);
+	list<int>test;
+
+
+	MyVector<int>ttt(8);
+	MyVector<int>::iterator
 	
-	for (int  i = 0; i < ttt.size(); i++)
-	{
-		cout << i << ":" << ttt[i] << endl;
-	}
 	int rrr;
 	cin >> rrr;
 	
