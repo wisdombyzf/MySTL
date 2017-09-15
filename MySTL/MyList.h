@@ -50,7 +50,7 @@ public:
 	size_type size() { return length; }		//返回链表长度
 	bool empty() { return head == tail; }		//是否为空
 
-	iterator operator ++(){return }		//重载++运算符
+	iterator operator ++(){return }		//重载++运算符..
 
 private:
 	iterator head;
