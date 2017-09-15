@@ -10,21 +10,22 @@ To disable this warning........
 _SCL_SECURE_NO_WARNINGS
 */
 
-
 #include<iostream>
 #include"MyVector.h"
-#include<vector>
 #include<list>
+#include"MyList.h"
 using namespace std;
 
 
 int main()
 {
-	list<int>test;
-
-
-	MyVector<int>ttt(8);
-	MyVector<int>::iterator
+	MyList<int>test;
+	for (int  i = 0; i < 17; i++)
+	{
+		test.push_back(i);
+	}
+	
+	
 	
 	int rrr;
 	cin >> rrr;
