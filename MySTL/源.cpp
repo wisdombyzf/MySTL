@@ -20,12 +20,13 @@ using namespace std;
 int main()
 {
 	MyList<int>test;
-	for (int  i = 0; i < 17; i++)
-	{
-		test.push_back(i);
-	}
-	
-	
+	test.push_front(88);
+	test.push_front(99);
+	test.insert(test.begin(), 76889);
+	cout << test.front() << endl;
+	test.erase(test.begin());
+	cout << test.front() << endl;
+
 	
 	int rrr;
 	cin >> rrr;
