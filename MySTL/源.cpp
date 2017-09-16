@@ -11,23 +11,28 @@ _SCL_SECURE_NO_WARNINGS
 */
 
 #include<iostream>
+#include"MyStack.h"
+#include<stack>
 #include"MyVector.h"
 #include<list>
+#include<algorithm>
 #include"MyList.h"
 using namespace std;
 
 
 int main()
 {
-	MyList<int>test;
-	test.push_front(88);
-	test.push_front(99);
-	test.insert(test.begin(), 76889);
-	cout << test.front() << endl;
-	test.erase(test.begin());
-	cout << test.front() << endl;
-
+	MyStack<int>test;
 	
+	test.push(899);
+	test.push(777);
+	test.push(77324);
+	while (!test.empty())
+	{
+		cout << test.top() << endl;
+	
+		test.pop();
+	}						
 	int rrr;
 	cin >> rrr;
 	

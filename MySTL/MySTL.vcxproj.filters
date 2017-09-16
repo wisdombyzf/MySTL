@@ -21,12 +21,18 @@
     <ClCompile Include="MyVector.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="MyStack.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyVector.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="MyList.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MyStack.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

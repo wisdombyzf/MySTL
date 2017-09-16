@@ -53,7 +53,6 @@ private:
 };
 
 
-
 template<typename T, class my_allocator = std::allocator<T>>
 void MyVector<T, my_allocator>::erase(iterator position)
 {
