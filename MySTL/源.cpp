@@ -11,6 +11,8 @@ _SCL_SECURE_NO_WARNINGS
 */
 
 #include<iostream>
+#include<queue>
+#include"MyQueue.h"
 #include"MyStack.h"
 #include<stack>
 #include"MyVector.h"
@@ -22,17 +24,19 @@ using namespace std;
 
 int main()
 {
-	MyStack<int>test;
+	MyQueue<int>ttt;
 	
-	test.push(899);
-	test.push(777);
-	test.push(77324);
-	while (!test.empty())
+	ttt.push(342);
+	ttt.push(32);
+	ttt.push(344242);
+	cout << ttt.size() << endl;
+
+	while (!ttt.empty())
 	{
-		cout << test.top() << endl;
-	
-		test.pop();
-	}						
+		cout << ttt.front() << endl;
+		ttt.pop();
+	}
+	cout << ttt.size() << endl;
 	int rrr;
 	cin >> rrr;
 	
