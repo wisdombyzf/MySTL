@@ -120,6 +120,8 @@
     <ClInclude Include="MyQueue.h" />
     <ClInclude Include="MyStack.h" />
     <ClInclude Include="MyVector.h" />
+    <ClInclude Include="RBTree.h" />
+    <ClInclude Include="test.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

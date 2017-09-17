@@ -11,6 +11,7 @@ _SCL_SECURE_NO_WARNINGS
 */
 
 #include<iostream>
+#include"RBTree.h"
 #include<queue>
 #include"MyQueue.h"
 #include"MyStack.h"
@@ -19,24 +20,27 @@ _SCL_SECURE_NO_WARNINGS
 #include<list>
 #include<algorithm>
 #include"MyList.h"
+
+//#include"test.h"
 using namespace std;
 
 
 int main()
 {
-	MyQueue<int>ttt;
-	
-	ttt.push(342);
-	ttt.push(32);
-	ttt.push(344242);
-	cout << ttt.size() << endl;
-
-	while (!ttt.empty())
+	RBTree<int>tree;
+	for (int  i = 0; i < 9; i++)
 	{
-		cout << ttt.front() << endl;
-		ttt.pop();
+		int temp = rand() % 100;
+		cout << temp << endl;
+
+		Node<int>* t1 = new Node<int>;
+		t1->key = temp;
+		tree.insert(t1);
 	}
-	cout << ttt.size() << endl;
+	
+
+
+
 	int rrr;
 	cin >> rrr;
 	

@@ -40,6 +40,7 @@ public:
 
 	
 	*/
+	iterator operator++ (int) { node=node->next_pointer; return node; }		//重载++运算符
 
 	iterator create_node() { return new List_Node<T>; }		//构造一个结点
 	iterator begin() { return head->next_pointer; }	//返回头结点地址
@@ -62,7 +63,9 @@ public:
 private:
 	iterator head;
 	iterator tail;	
+	iterator node;
 	size_type length;	//链表长度
+
 
 };
 
