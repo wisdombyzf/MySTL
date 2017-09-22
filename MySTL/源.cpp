@@ -37,8 +37,6 @@ int main()
 		t1->key = temp;
 		tree.insert(t1);
 	}
-	
-
 
 
 	int rrr;

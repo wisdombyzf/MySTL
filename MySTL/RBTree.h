@@ -22,8 +22,6 @@ struct Node
 	Node* parent;	//父节点
 };
 
-
-
 template<class T>
 class RBTree
 {
@@ -151,6 +149,8 @@ void RBTree<T>::right_rotate(node_pointer y)
 
 
 /*
+核心思想就是分类讨论。。。。
+
 ① 情况说明：被插入的节点是根节点。
 处理方法：直接把此节点涂为黑色。
 ② 情况说明：被插入的节点的父节点是黑色。
@@ -210,6 +210,72 @@ void RBTree<T>::insert_fix_up(node_pointer my_node)
 	node_pointer parent_node;
 	while ((my_node->parent!=nullptr)&&(my_node->parent->color==red))			//当父节点存在且为红色时进入情况③，否则跳过循环
 	{
+		parent_node = my_node->parent;		//父节点
+		node_pointer granpa = parent_node->parent;	//祖父结点	
+		if (parent_node==granpa->left)	//若父节点是祖父节点的左节点
+		{
+			node_pointer uncle = granpa->right;
+			//叔叔结点为黑(包括为null,开始未考虑到，出bug了)
+			if ((uncle==nullptr)||(uncle->color==black))
+			{
+				//叔叔结点为黑，且当前节点为右孩纸
+				if (parent_node->right == my_node)
+				{
+					node_pointer temp;
+					left_rotate(parent_node);
+					temp = parent_node;
+					parent_node = my_node;
+					my_node = temp;
+				}
+				else		//为左孩纸
+				{
+					parent_node->color = black;
+					granpa->color = red;
+					right_rotate(granpa);
+				}
+			}
+			else
+			{
+				uncle->color = black;
+				parent_node->color = black;
+				granpa->color = red;
+				my_node = granpa;
+				continue;
+			}
+		}
+		else
+		{
+			node_pointer uncle = granpa->left;
+			//叔叔结点为黑
+			if ((uncle==nullptr)||(uncle->color==black))
+			{
+				//叔叔结点为黑色，且当前结点为左孩纸
+				if (my_node == parent_node->left)
+				{
+					node_pointer temp;
+					right_rotate(parent_node);
+					temp = parent_node;
+					parent_node = my_node;
+					my_node = temp;
+				}
+				else
+				{
+					parent_node->color = black;
+					granpa->color = red;
+					left_rotate(granpa);
+				}
+			}
+			else
+			{
+				parent_node->color = black;
+				uncle->color = black;
+				granpa->color = red;
+				my_node = granpa;
+				continue;
+			}
+		}
+
+		/*
 		parent_node = my_node->parent;
 		node_pointer uncle_node;
 		if (parent_node->parent->left== parent_node)		//父节点为左孩纸时
@@ -266,6 +332,7 @@ void RBTree<T>::insert_fix_up(node_pointer my_node)
 				}
 			}
 		}
+		*/
 	}
 	root->color = black;
 }
