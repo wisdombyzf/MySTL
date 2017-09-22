@@ -35,6 +35,8 @@ public:
 	void right_rotate(node_pointer y);	//右旋
 	void insert(node_pointer my_node);	//插入
 	void insert_fix_up(node_pointer my_node);	//插入修正
+	void remove(node_pointer my_node);		//删除
+	void remove_fix_up(node_pointer my_node);	//删除修正
 	node_pointer get_root() { return root; }		//返回根节点
 
 
@@ -44,7 +46,6 @@ private:
 	node_pointer root;
 
 };
-
 
 template<class T>
 RBTree<T>::RBTree()
@@ -146,7 +147,6 @@ void RBTree<T>::right_rotate(node_pointer y)
 	y->parent = x;				//y的父节点变为x
 	x->right = y;		//x的右结点为y
 }
-
 
 /*
 核心思想就是分类讨论。。。。
@@ -336,3 +336,57 @@ void RBTree<T>::insert_fix_up(node_pointer my_node)
 	}
 	root->color = black;
 }
+
+template<class T>
+void RBTree<T>::remove(node_pointer my_node)
+{
+	node_pointer parent = nullptr;
+	node_pointer child = nullptr;
+	//当左右结点都存在时
+	if ((my_node->left!=nullptr)&&())
+	{
+
+
+	}
+	else
+	{
+		//当左结点存在时
+		if (my_node->left!=nullptr)
+		{
+			child = my_node->left;
+		}
+		//右结点存在时
+		if (my_node->right != nullptr)
+		{
+
+		}
+		//都不存在时
+		if ((my_node->left==nullptr)&&(my_node->right==nullptr))
+		{
+			//为根节点时
+			if (my_node==root)
+			{
+				root = nullptr;
+				delete my_node;
+				return;
+			}
+			if (my_node->color==black)
+			{
+				remove_fix_up(my_node);
+			}
+			else
+			{
+				
+
+			}
+		}
+	}
+
+}
+
+template<class T>
+void RBTree<T>::remove_fix_up(node_pointer my_node)
+{
+
+}
+
