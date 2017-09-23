@@ -32,15 +32,21 @@ int main()
 	{
 		int temp = rand() % 100;
 		cout << temp << endl;
-
-		Node<int>* t1 = new Node<int>;
+		//tree.insert(temp);
+		
+		RBTNode<int>* t1 = new RBTNode<int>;
 		t1->key = temp;
 		tree.insert(t1);
+		
 	}
+	RBTNode<int>* ttt = tree.find(69);
+	tree.remove(tree.get_root(), ttt);
+	//tree.remove(tree.get_root(),ttt);
 
+	/*
 	Node<int>* ttt = tree.find(69);
 	tree.remove(ttt);
-
+	*/
 
 	int rrr;
 	cin >> rrr;

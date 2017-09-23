@@ -13,7 +13,7 @@
 #include <iostream>
 using namespace std;
 
-enum RBTColor { RED, BLACK };
+enum RBTColor { red, black };
 
 template <class T>
 class RBTNode {
@@ -109,10 +109,10 @@ private:
 
 #define rb_parent(r)   ((r)->parent)
 #define rb_color(r) ((r)->color)
-#define rb_is_red(r)   ((r)->color==RED)
-#define rb_is_black(r)  ((r)->color==BLACK)
-#define rb_set_black(r)  do { (r)->color = BLACK; } while (0)
-#define rb_set_red(r)  do { (r)->color = RED; } while (0)
+#define rb_is_red(r)   ((r)->color==red)
+#define rb_is_black(r)  ((r)->color==black)
+#define rb_set_black(r)  do { (r)->color = black; } while (0)
+#define rb_set_red(r)  do { (r)->color = red; } while (0)
 #define rb_set_parent(r,p)  do { (r)->parent = (p); } while (0)
 #define rb_set_color(r,c)  do { (r)->color = (c); } while (0)
 };
@@ -549,7 +549,7 @@ void RBTree<T>::insert(RBTNode<T>* &root, RBTNode<T>* node)
 		root = node;
 
 	// 2. 设置节点的颜色为红色
-	node->color = RED;
+	node->color = red;
 
 	// 3. 将它重新修正为一颗二叉查找树
 	insertFixUp(root, node);
@@ -568,7 +568,7 @@ void RBTree<T>::insert(T key)
 	RBTNode<T> *z = NULL;
 
 	// 如果新建结点失败，则返回。
-	if ((z = new RBTNode<T>(key, BLACK, NULL, NULL, NULL)) == NULL)
+	if ((z = new RBTNode<T>(key, black, NULL, NULL, NULL)) == NULL)
 		return;
 
 	insert(mRoot, z);
@@ -737,7 +737,7 @@ void RBTree<T>::remove(RBTNode<T>* &root, RBTNode<T> *node)
 		replace->left = node->left;
 		node->left->parent = replace;
 
-		if (color == BLACK)
+		if (color == black)
 			removeFixUp(root, child, parent);
 
 		delete node;
@@ -767,7 +767,7 @@ void RBTree<T>::remove(RBTNode<T>* &root, RBTNode<T> *node)
 	else
 		root = child;
 
-	if (color == BLACK)
+	if (color == black)
 		removeFixUp(root, child, parent);
 	delete node;
 }
