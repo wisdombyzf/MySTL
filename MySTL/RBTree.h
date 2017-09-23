@@ -36,8 +36,10 @@ public:
 	void insert(node_pointer my_node);	//插入
 	void insert_fix_up(node_pointer my_node);	//插入修正
 	void remove(node_pointer my_node);		//删除
-	void remove_fix_up(node_pointer my_node);	//删除修正
+	void remove_fix_up(node_pointer child,node_pointer parent);	//删除修正
 	node_pointer get_root() { return root; }		//返回根节点
+	node_pointer find(T value);			//查找树中是否存value元素，存在则返回改元素的指针，不存在则返回nullptr
+
 
 
 
@@ -340,13 +342,68 @@ void RBTree<T>::insert_fix_up(node_pointer my_node)
 template<class T>
 void RBTree<T>::remove(node_pointer my_node)
 {
-	node_pointer parent = nullptr;
-	node_pointer child = nullptr;
+	node_pointer parent = nullptr;		//取代结点的父节点
+	node_pointer child = nullptr;		//取代结点的右孩纸（后继结点，肯定不存在左孩纸）
+	int node_color;
 	//当左右结点都存在时
-	if ((my_node->left!=nullptr)&&())
+	if ((my_node->left!=nullptr)&&(my_node->right!=nullptr))
 	{
+		node_pointer replace = my_node;		//用replace取代删除结点
+		//获取后继结点
+		replace = replace->right;
+		while (replace->left!=nullptr)
+		{
+			replace = replace->left;
+		}
 
+		if (my_node==root)		//如果删除结点为根节点
+		{
+			root = replace;
+		}
+		else
+		{
+			node_pointer parent_temp = my_node->parent;
+			//将结点的父节点指向新节点
+			if (parent_temp->left==my_node)
+			{
+				parent_temp->left = replace;
+			}
+			else
+			{
+				parent_temp->right = replace;
+			}
 
+			child = replace->right;
+			parent = replace->parent;
+			node_color = replace->color;
+
+			//若被删除结点是后继结点的父节点
+			if (parent==my_node)
+			{
+				parent = replace;
+			}
+			else
+			{
+				//child不为空
+				if (child!=nullptr)
+				{
+					child->parent = parent;
+				}
+				parent->left = child;
+				replace->right = my_node->right;
+				my_node->right->parent = replace;
+			}
+
+			replace->parent = my_node->parent;
+			replace->color = my_node->color;
+			replace->left = my_node->left;
+			my_node->left->parent = replace;
+			if (node_color==black)
+			{
+				remove_fix_up(child, parent);
+			}
+			delete my_node;
+		}
 	}
 	else
 	{
@@ -358,35 +415,161 @@ void RBTree<T>::remove(node_pointer my_node)
 		//右结点存在时
 		if (my_node->right != nullptr)
 		{
-
+			child = my_node->right;
 		}
-		//都不存在时
-		if ((my_node->left==nullptr)&&(my_node->right==nullptr))
+		parent = my_node->parent;
+		node_color = my_node->color;
+		if (child!=nullptr)
 		{
-			//为根节点时
-			if (my_node==root)
+			child->parent = parent;
+		}
+		if (parent!=nullptr)
+		{
+			if (parent->left==my_node)
 			{
-				root = nullptr;
-				delete my_node;
-				return;
-			}
-			if (my_node->color==black)
-			{
-				remove_fix_up(my_node);
+				parent->left = child;
 			}
 			else
 			{
-				
-
+				parent->right = child;
 			}
 		}
+		else
+		{
+			root = child;
+		}
+
+		if (node_color==black)
+		{
+			remove_fix_up(child,parent);
+		}
+		delete my_node;
 	}
 
 }
 
 template<class T>
-void RBTree<T>::remove_fix_up(node_pointer my_node)
+void RBTree<T>::remove_fix_up(node_pointer my_node, node_pointer parent)
 {
-
+	node_pointer other_node;
+	while ((my_node!=root)&&((my_node==nullptr)||(my_node->color==black)))
+	{
+		if (parent->left==my_node)
+		{
+			other_node = parent->right;
+			//兄弟结点为红
+			if (other_node->color==red)
+			{
+				other_node->color = black;
+				parent->color = red;
+				left_rotate(parent);
+				other_node = parent->right;
+			}
+			//兄弟结点为黑，且兄弟结点的俩孩纸也为黑
+			else if (((other_node->left==nullptr)||(other_node->left->color==black))&&
+				((other_node->right == nullptr) || (other_node->right->color == black)))
+			{
+				other_node->color = red;
+				my_node = parent;
+				parent = my_node->parent;
+			}
+			else
+			{
+				//兄弟结点为黑，兄弟结点的左孩纸为红，右孩纸为黑
+				if ((other_node->right==nullptr)||(other_node->right->color==black))
+				{
+					other_node->left->color = black;
+					other_node->color = red;
+					right_rotate(other_node);
+					other_node = parent->right;
+				}
+				other_node->color = parent->color;
+				parent->color = black;
+				other_node->right->color = black;
+				left_rotate(parent);
+				my_node = root;
+				break;
+			}
+		}
+		else			//对称树
+		{
+			other_node = parent->left;
+			if (other_node->color == red)
+			{
+				other_node->color = black;
+				parent->color = red;
+				right_rotate(parent);
+				other_node = parent->left;
+			}
+			//兄弟结点为黑，且兄弟结点的俩孩纸也为黑
+			else if (((other_node->left == nullptr) || (other_node->left->color == black)) &&
+				((other_node->right == nullptr) || (other_node->right->color == black)))
+			{
+				other_node->color = red;
+				my_node = parent;
+				parent = my_node->parent;
+			}
+			else
+			{
+				//兄弟结点为黑，兄弟结点的左孩纸为红，右孩纸为黑
+				if ((other_node->right == nullptr) || (other_node->right->color == black))
+				{
+					other_node->left->color = black;
+					other_node->color = red;
+					left_rotate(other_node);
+					other_node = parent->left;
+				}
+				other_node->color = parent->color;
+				parent->color = black;
+				other_node->right->color = black;
+				right_rotate(parent);
+				my_node = root;
+				break;
+			}
+		}
+	}
+	if (my_node!=nullptr)
+	{
+		my_node->color = black;
+	}
 }
+
+template<class T>
+Node<T>* RBTree<T>::find(T value)
+{
+	
+	node_pointer temp = root;
+	while (true)
+	{
+		if (value==temp->key)		//等于时
+		{
+			return temp;
+		}
+		else if (value>temp->key)		//大于时，向右子树
+		{
+			if (temp->right==nullptr)		//右子树不存在时，返回nullptr
+			{
+				return nullptr;
+			}
+			else
+			{
+				temp = temp->right;
+			}
+
+		}
+		else
+		{
+			if (temp->left==nullptr)		//左子树不存在时，返回nullptr
+			{
+				return nullptr;
+			}
+			else
+			{
+				temp = temp->left;
+			}
+		}
+	}
+}
+
+
 

@@ -38,6 +38,9 @@ int main()
 		tree.insert(t1);
 	}
 
+	Node<int>* ttt = tree.find(69);
+	tree.remove(ttt);
+
 
 	int rrr;
 	cin >> rrr;
