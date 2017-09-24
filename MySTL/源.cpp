@@ -40,7 +40,7 @@ int main()
 		
 	}
 	RBTNode<int>* ttt = tree.find(69);
-	tree.remove(tree.get_root(), ttt);
+	tree.remove(ttt);
 	//tree.remove(tree.get_root(),ttt);
 
 	/*
