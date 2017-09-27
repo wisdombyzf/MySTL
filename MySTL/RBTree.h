@@ -17,23 +17,23 @@ enum RBTcolor
 };
 */
 
-template<class T>
+template<class T,class R>
 struct RBTNode
 {
 	RBTColor color;	//结点颜色
 	T key;		//关键字
-	T data;
+	R data;
 	RBTNode* left;		//左孩纸
 	RBTNode* right;	//右孩纸
 	RBTNode* parent;	//父节点
 };
 
-template<class T>
+template<class T, class R>
 class RBTree
 {
 public:
 	//类型表
-	typedef RBTNode<T>*	node_pointer;	//结点指针
+	typedef RBTNode<T,R>*	node_pointer;	//结点指针
 public:
 	RBTree();
 	~RBTree();
@@ -42,8 +42,8 @@ public:
 	void insert(node_pointer my_node);	//插入
 	void insert_fix_up(node_pointer my_node);	//插入修正
 	//void remove(node_pointer my_node);		//删除
-	void remove(RBTNode<T> *node);
-	void removeFixUp(RBTNode<T> *node, RBTNode<T> *parent);
+	void remove(RBTNode<T,R> *node);
+	void removeFixUp(RBTNode<T,R> *node, RBTNode<T,R> *parent);
 	void remove_fix_up(node_pointer my_node);	//删除修正
 	node_pointer get_root() { return root; }		//返回根节点
 	node_pointer find(T value);			//查找树中是否存value元素，存在则返回改元素的指针，不存在则返回nullptr
@@ -61,14 +61,15 @@ private:
 #define rb_set_color(r,c)  do { (r)->color = (c); } while (0)
 };
 
-template<class T>
-RBTree<T>::RBTree()
+template<class T, class R>
+RBTree<T,R>::RBTree()
 {
 	root = nullptr;
 }
 
-template<class T>
-RBTree<T>::~RBTree()
+
+template<class T, class R>
+RBTree<T,R>::~RBTree()
 {
 }
 
@@ -86,8 +87,8 @@ RBTree<T>::~RBTree()
 *
 *
 */
-template<class T>
-void RBTree<T>::left_rotate(node_pointer x)
+template<class T, class R>
+void RBTree<T,R>::left_rotate(node_pointer x)
 {
 	node_pointer y;
 	y = x->right;
@@ -130,8 +131,8 @@ void RBTree<T>::left_rotate(node_pointer x)
 *      lx  rx                                rx  ry
 *
 */
-template<class T>
-void RBTree<T>::right_rotate(node_pointer y)
+template<class T, class R>
+void RBTree<T,R>::right_rotate(node_pointer y)
 {
 	node_pointer x = y->left;
 	y->left = x->right;		//y的左节点变为rx
@@ -172,8 +173,8 @@ void RBTree<T>::right_rotate(node_pointer y)
 ③ 情况说明：被插入的节点的父节点是红色。
 处理方法：那么，该情况与红黑树的相冲突,使用insert_fix_up()修正
 */
-template<class T>
-void RBTree<T>::insert(node_pointer my_node)
+template<class T, class R>
+void RBTree<T,R>::insert(node_pointer my_node)
 {
 	//利用二叉查找树的规则，将结点插入
 	my_node->right = nullptr;
@@ -217,9 +218,8 @@ void RBTree<T>::insert(node_pointer my_node)
 	}
 }
 
-
-template<class T>
-void RBTree<T>::insert_fix_up(node_pointer my_node)
+template<class T, class R>
+void RBTree<T,R>::insert_fix_up(node_pointer my_node)
 {
 	node_pointer parent_node;
 	while ((my_node->parent!=nullptr)&&(my_node->parent->color==red))			//当父节点存在且为红色时进入情况③，否则跳过循环
@@ -351,8 +351,8 @@ void RBTree<T>::insert_fix_up(node_pointer my_node)
 	root->color = black;
 }
 
-template<class T>
-RBTNode<T>* RBTree<T>::find(T value)
+template<class T, class R>
+RBTNode<T,R>* RBTree<T,R>::find(T value)
 {
 	
 	node_pointer temp = root;
@@ -399,10 +399,10 @@ RBTNode<T>* RBTree<T>::find(T value)
 *     root 红黑树的根
 *     node 待修正的节点
 */
-template <class T>
-void RBTree<T>::removeFixUp(RBTNode<T> *node, RBTNode<T> *parent)
+template<class T, class R>
+void RBTree<T,R>::removeFixUp(RBTNode<T,R> *node, RBTNode<T,R> *parent)
 {
-	RBTNode<T> *other;
+	RBTNode<T,R> *other;
 
 	while ((!node || rb_is_black(node)) && node != root)
 	{
@@ -494,10 +494,10 @@ void RBTree<T>::removeFixUp(RBTNode<T> *node, RBTNode<T> *parent)
 *     root 红黑树的根结点
 *     node 删除的结点
 */
-template <class T>
-void RBTree<T>::remove(RBTNode<T> *node)
+template<class T, class R>
+void RBTree<T,R>::remove(RBTNode<T,R> *node)
 {
-	RBTNode<T> *child, *parent;
+	RBTNode<T,R> *child, *parent;
 	RBTColor color;
 
 	// 被删除节点的"左右孩子都不为空"的情况。
@@ -505,7 +505,7 @@ void RBTree<T>::remove(RBTNode<T> *node)
 	{
 		// 被删节点的后继节点。(称为"取代节点")
 		// 用它来取代"被删节点"的位置，然后再将"被删节点"去掉。
-		RBTNode<T> *replace = node;
+		RBTNode<T,R> *replace = node;
 
 		// 获取后继节点
 		replace = replace->right;
@@ -795,8 +795,8 @@ remove_fix_up(child, parent);
 delete my_node;
 */
 
-template<class T>
-void RBTree<T>::remove_fix_up(node_pointer node)
+template<class T,class R>
+void RBTree<T,R>::remove_fix_up(node_pointer node)
 {
 	node_pointer parent = nullptr;
 	node_pointer brother = nullptr;

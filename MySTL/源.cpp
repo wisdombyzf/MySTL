@@ -11,6 +11,7 @@ _SCL_SECURE_NO_WARNINGS
 */
 
 #include<iostream>
+#include<string>
 #include"RBTree.h"
 #include<queue>
 #include"MyQueue.h"
@@ -20,6 +21,8 @@ _SCL_SECURE_NO_WARNINGS
 #include<list>
 #include<algorithm>
 #include"MyList.h"
+#include<map>
+#include"MyMap.h"
 
 //#include"test.h"
 using namespace std;
@@ -27,22 +30,28 @@ using namespace std;
 
 int main()
 {
-	RBTree<int>tree;
-	for (int  i = 0; i < 9; i++)
-	{
-		int temp = rand() % 100;
-		cout << temp << endl;
-		//tree.insert(temp);
-		
-		RBTNode<int>* t1 = new RBTNode<int>;
-		t1->key = temp;
-		tree.insert(t1);
-		
-	}
-	RBTNode<int>* ttt = tree.find(69);
-	tree.remove(ttt);
-	//tree.remove(tree.get_root(),ttt);
 
+
+	MyMap<int, string>ttt;
+	MyMap<int, string>::iterator iter;
+
+	ttt.insert(pair<int, string>(221, "dfsfs"));
+	ttt.insert(pair<int, string>(222, "a"));
+	ttt.insert(pair<int, string>(223, "b"));
+	ttt.insert(pair<int, string>(224, "c"));
+	iter = ttt.find(222);
+	ttt.erase(iter);
+	iter = ttt.find(222);
+	cout << ttt.size() << endl;	
+	if (iter==nullptr)
+	{
+		cout << "ÔªËØ²»´æÔÚ" << endl;
+	}
+	else
+	{
+		cout << iter->data << endl;
+	}
+	//tree.remove(tree.get_root(),ttt);
 	/*
 	Node<int>* ttt = tree.find(69);
 	tree.remove(ttt);
@@ -50,7 +59,4 @@ int main()
 
 	int rrr;
 	cin >> rrr;
-	
-	
-	
 }
