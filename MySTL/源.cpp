@@ -31,7 +31,9 @@ using namespace std;
 
 int main()
 {
-	MyString t;
-	cout<<t.test(66666);
+	string t;
+	t ="12345";
+	cout << t;
+//	cout << t;
 	system("pause");
 }
