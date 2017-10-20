@@ -41,10 +41,10 @@
     <ClInclude Include="RBTree.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="test.h">
+    <ClInclude Include="MyMap.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="MyMap.h">
+    <ClInclude Include="MyString.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
