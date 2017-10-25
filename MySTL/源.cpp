@@ -31,9 +31,14 @@ using namespace std;
 
 int main()
 {
+	/*
 	string t;
 	t ="12345";
-	cout << t;
-//	cout << t;
+	cout << t.find("0") << endl;
+	*/
+	MyString test;
+	test = "aaabaaaa";
+	//cout << test.data;
+	cout<<test.find("f");
 	system("pause");
 }
